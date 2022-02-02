@@ -11,7 +11,7 @@ do
     file_count=`find ${file} -maxdepth 1 -type f | wc -l`
     cat=${file#"./"}
     lowercase=`echo $cat | tr '[A-Z]' '[a-z]' | tr '[ ]' '[_]'`
-    echo "- [$cat](#point_right-${lowercase})" >> $readme
+    echo "- [$cat](#gear-${lowercase}-${file_count})" >> $readme
 done
 
 for file in ./Easy/* ./Medium/* ./Hard/*
@@ -53,12 +53,12 @@ do
     # empty
     if [ "$prev_cat" = '' ]; then
         file_count=`find ./${cat}/ -maxdepth 1 -type f | wc -l`
-        echo "## ${cat} ($file_count)" >> $readme
+        echo "## :gear: ${cat} ($file_count)" >> $readme
     fi
 
     # updating the readme only if it's a file
     if [ "$lang" != '' ]; then
-        echo ":point_right: ${ques_no}. ${ques} [${lang}]" >> $readme
+        echo ":point_right: ${ques_no}. ${ques} [${lang}]\r" >> $readme
         prev_cat=$cat
     fi
 
