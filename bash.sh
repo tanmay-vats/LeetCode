@@ -58,7 +58,7 @@ do
 
     # updating the readme only if it's a file
     if [ "$lang" != '' ]; then
-        echo ":point_right: ${ques_no}. ${ques} [${lang}]\r" >> $readme
+        echo ":point_right: ${ques_no}. ${ques} [${lang}]\n\r" >> $readme
         prev_cat=$cat
     fi
 
