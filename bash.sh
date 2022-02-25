@@ -79,3 +79,5 @@ do
     #     sed -i "s/$file/$lowercase/g" "$f"
     # done
 done
+
+echo 'ReadMe file updated successfully!'
