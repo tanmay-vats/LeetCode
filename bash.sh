@@ -38,12 +38,16 @@ do
     # getting language name
     if [ "$extension" = "rb" ]; then
         lang="Ruby"
+        color="maroon"
     elif [ "$extension" = "py" ]; then
         lang="Python"
+        color="blue"
     elif [ "$extension" = "php" ]; then
         lang="PHP"
+        color="violet"
     else
         lang=''
+        color=''
     fi
 
     # update prev_cat with new if both are different
@@ -61,7 +65,9 @@ do
     # updating the readme only if it's a file
     if [ "$lang" != '' ]; then
         # echo ":point_right: ${ques_no}. ${ques} [${lang}]\n\r" >> $readme
-        printf ":point_right: %s. %s <span style='color: orange'>[%s]</span>\n\n" "$ques_no" "$ques" "$lang" >> "$readme"
+        # printf ":point_right: %s. %s [%s]\n\n" "$ques_no" "$ques" "$lang" >> "$readme"
+        printf ":point_right: %s. %s ![%s](https://img.shields.io/badge/-%s-%s?logo=%s&logoColor=white)\n\n" "$ques_no" "$ques" "$lang" "$lang" "$color" "$lang" >> "$readme"
+
         prev_cat=$cat
     fi
 
