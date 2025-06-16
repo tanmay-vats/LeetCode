@@ -61,7 +61,7 @@ do
     # updating the readme only if it's a file
     if [ "$lang" != '' ]; then
         # echo ":point_right: ${ques_no}. ${ques} [${lang}]\n\r" >> $readme
-        printf ":point_right: %s. %s [%s]\n\n" "$ques_no" "$ques" "$lang" >> "$readme"
+        printf ":point_right: %s. %s <code style='color: orange'>[%s]</code>\n\n" "$ques_no" "$ques" "$lang" >> "$readme"
         prev_cat=$cat
     fi
 
