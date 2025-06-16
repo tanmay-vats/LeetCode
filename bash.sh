@@ -6,18 +6,18 @@ echo 'This repository has solutions to several problems of LeetCode.' >> $readme
 echo 'Table of contents' >> $readme
 
 
-for file in ./Easy ./Medium ./Hard
+for dir in ./Easy ./Medium ./Hard
 do
-    file_count=`find ${file} -maxdepth 1 -type f | wc -l`
-    cat=${file#"./"}
+    file_count=`find ${dir} -maxdepth 1 -type f | wc -l | xargs`
+    cat=${dir#"./"}
     lowercase=`echo $cat | tr '[A-Z]' '[a-z]' | tr '[ ]' '[_]'`
     echo "- [$cat](#gear-${lowercase}-${file_count})" >> $readme
 done
 
-for file in ./Easy/* ./Medium/* ./Hard/*
+for dir in ./Easy/* ./Medium/* ./Hard/*
 do
-    # fetching extesion & file name from path
-    file_name="$(basename $file)"
+    # fetching extesion & dir name from path
+    file_name="$(basename $dir)"
     extension="${file_name##*.}"
     name="${file_name%.*}"
 
@@ -26,11 +26,13 @@ do
 
     # fetching question from path
     ques=${name#"$ques_no""_"}
-    ques=`echo $ques | sed 's/\([A-Z]\{1,\}\)/ \U\1/g;s/^_//' | xargs`
+    # ques=`echo $ques | sed 's/\([A-Z]\{1,\}\)/ \U\1/g;s/^_//' | xargs`
+    ques=$(echo "$ques" | xargs | perl -pe 's/(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])/\ /g')
+
     # echo $ques
 
     # fetching category number from path
-    cat="${file%"/${file_name}"}" # removing file_name(suffix)
+    cat="${dir%"/${file_name}"}" # removing file_name(suffix)
     cat=${cat#"./"} # removing ./(prefix)
 
     # getting language name
@@ -52,13 +54,14 @@ do
 
     # empty
     if [ "$prev_cat" = '' ]; then
-        file_count=`find ./${cat}/ -maxdepth 1 -type f | wc -l`
+        file_count=`find ./${cat}/ -maxdepth 1 -type f | wc -l | xargs`
         echo "## :gear: ${cat} ($file_count)" >> $readme
     fi
 
     # updating the readme only if it's a file
     if [ "$lang" != '' ]; then
-        echo ":point_right: ${ques_no}. ${ques} [${lang}]\n\r" >> $readme
+        # echo ":point_right: ${ques_no}. ${ques} [${lang}]\n\r" >> $readme
+        printf ":point_right: %s. %s [%s]\n\n" "$ques_no" "$ques" "$lang" >> "$readme"
         prev_cat=$cat
     fi
 
